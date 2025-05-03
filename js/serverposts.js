@@ -1,8 +1,15 @@
+// js/serverposts.js
+
+// Handles creating and displaying server posts using a single shared localStorage key.
+// Data is NOT user-specific and is NOT shared or persistent server-side.
+// No author, profile picture, or moderation status functionality.
+
 console.log("serverposts.js: Script loaded.");
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("serverposts.js: DOMContentLoaded fired.");
 
+    // Get references to elements
     const createPostButton = document.getElementById('createPostButton');
     const postFormModal = document.getElementById('postFormModal');
     const closePostFormButton = document.getElementById('closePostForm');
@@ -12,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const serverPostsSection = document.getElementById('server-posts-section');
 
 
+    // Form inputs
     const serverIconInput = document.getElementById('serverIcon');
     const iconPreviewDiv = document.getElementById('iconPreview');
     const serverNameInput = document.getElementById('serverName');
@@ -23,14 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const serverLinksInput = document.getElementById('serverLinks');
     const serverVersionInput = document.getElementById('serverVersion');
 
-    const MAX_POST_ICON_SIZE = 500 * 1024;
-    const MAX_SCREENSHOT_SIZE = 1 * 1024 * 1024;
-    const MAX_SCREENSHOTS = 3;
+     // Constants
+    const MAX_POST_ICON_SIZE = 500 * 1024; // 500KB max size for post icons
+    const MAX_SCREENSHOT_SIZE = 1 * 1024 * 1024; // 1MB per screenshot
+    const MAX_SCREENSHOTS = 3; // Max number of screenshots
 
+
+    // Single Local Storage Key for all posts (shared)
     const SHARED_POSTS_STORAGE_KEY = 'NicoInfoSharedPosts';
 
+    // Array to hold all server post data
     let allServerPosts = [];
 
+
+    // --- Helper Functions ---
+
+    // Load all posts from localStorage
     function loadAllPosts() {
         console.log("serverposts.js: Calling loadAllPosts.");
         const postsJson = localStorage.getItem(SHARED_POSTS_STORAGE_KEY);
@@ -39,10 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
              console.log(`serverposts.js: Loaded ${allServerPosts.length} server posts from localStorage.`);
         } catch (e) {
             console.error("serverposts.js: Error parsing server posts from localStorage:", e);
-             allServerPosts = [];
+             allServerPosts = []; // Start fresh on error
         }
+        // Don't render automatically here, wait for the 'showServerPosts' event
     }
 
+    // Save all posts to localStorage
     function saveAllPosts() {
          console.log("serverposts.js: Calling saveAllPosts.");
         try {
@@ -54,8 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Display image previews (for icon and screenshots)
     function displayImagePreviews(input, previewContainer) {
          console.log("serverposts.js: Displaying image preview.");
+        // Clear previous previews
         previewContainer.innerHTML = '';
 
         if (!input.files || input.files.length === 0) {
@@ -63,45 +83,51 @@ document.addEventListener('DOMContentLoaded', () => {
              return;
         }
 
+        // Limit number of files for screenshots input specifically
          if (input.id === 'serverScreenshots' && input.files.length > MAX_SCREENSHOTS) {
               alert(`You can only select up to ${MAX_SCREENSHOTS} screenshots.`);
-              input.value = '';
-              previewContainer.innerHTML = '';
-              return;
+              input.value = ''; // Clear selected files
+              previewContainer.innerHTML = ''; // Clear preview
+              return; // Stop processing
          }
 
         for (let i = 0; i < input.files.length; i++) {
             const file = input.files[i];
+            // Add a basic file size check *before* trying to read
             const maxFileSize = (input.id === 'serverIcon') ? MAX_POST_ICON_SIZE : MAX_SCREENSHOT_SIZE;
 
              if (file.size > maxFileSize) {
                   alert(`File "${file.name}" is too large (${(file.size / 1024).toFixed(0)}KB). Max allowed size is ${(maxFileSize / 1024).toFixed(0)}KB.`);
+                  // Clear the input for this file type
                   input.value = '';
-                  previewContainer.innerHTML = '';
-                  return;
+                  previewContainer.innerHTML = ''; // Clear any previews
+                  return; // Stop processing and exit function (only check first large file)
              }
 
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const img = document.createElement('img');
-                    img.src = e.target.result;
+                    img.src = e.target.result; // Data URL
                     previewContainer.appendChild(img);
                 };
                 reader.onerror = (e) => {
                      console.error("serverposts.js: FileReader error:", e);
                      alert(`Could not read file "${file.name}".`);
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(file); // Read file as data URL
             } else {
                  alert(`File "${file.name}" is not an image.`);
+                  // Clear the input for this file type
                    input.value = '';
-                   previewContainer.innerHTML = '';
-                   return;
+                   previewContainer.innerHTML = ''; // Clear any previews
+                   return; // Stop processing if a non-image is found
             }
         }
     }
 
+
+    // Render all server posts
     function renderPosts() {
         console.log("serverposts.js: Calling renderPosts.");
         if (!serverPostsList) {
@@ -109,15 +135,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Check if the server posts section is currently active/visible before rendering
+        // This prevents rendering invisible content and ensures data is fresh when section is shown.
         const serverPostsSection = document.getElementById('server-posts-section');
+         // Check if the section element exists before checking its class
         if (!serverPostsSection || !serverPostsSection.classList.contains('active-section')) {
+             // Section is not active, clear previous render state and skip rendering
              serverPostsList.innerHTML = '';
-             if (noPostsMessage) noPostsMessage.style.display = 'none';
+             if (noPostsMessage) noPostsMessage.style.display = 'none'; // Ensure message is hidden when list is manually cleared
              console.log("serverposts.js: Server posts section not active, skipping render.");
              return;
          }
 
-        serverPostsList.innerHTML = '';
+
+        serverPostsList.innerHTML = ''; // Clear current list
 
         if (allServerPosts.length === 0) {
             if (noPostsMessage) noPostsMessage.style.display = 'block';
@@ -127,11 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (noPostsMessage) noPostsMessage.style.display = 'none';
         }
 
+        // Sort posts by creation date, newest first (optional but nice)
          allServerPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
 
         allServerPosts.forEach(post => {
             const postElement = document.createElement('div');
             postElement.classList.add('server-post-card');
+
+            // Removed author, profile picture, moderation status display
 
             postElement.innerHTML = `
                 <div class="post-header">
@@ -158,25 +193,31 @@ document.addEventListener('DOMContentLoaded', () => {
                         `<div class="post-links">
                             <h4>Links:</h4>
                             ${post.links.map(link => {
+                                // Basic URL validation and display
                                 try {
                                     const url = new URL(link.trim());
+                                    // Use hostname or a simple label as link text
                                      let linkText = url.hostname;
+                                     // Add more specific link text checks if needed
                                      if (link.toLowerCase().includes('discord.gg')) linkText = 'Discord';
                                      else if (link.toLowerCase().includes('github.com')) linkText = 'GitHub';
                                      else if (link.toLowerCase().includes('patreon.com') || link.toLowerCase().includes('paypal.me')) linkText = 'Donate';
                                      else if (link.toLowerCase().includes('bug report')) linkText = 'Bug Report';
                                      else if (link.toLowerCase().includes('mods list')) linkText = 'Mods List';
+                                      // Fallback to just hostname if no specific match
                                       if (linkText === url.hostname && linkText.startsWith('www.')) {
-                                          linkText = linkText.substring(4);
+                                          linkText = linkText.substring(4); // Remove www.
                                       }
-                                       if (linkText.length > 20) {
+                                       if (linkText.length > 20) { // Shorten long hostnames
                                            linkText = linkText.substring(0, 17) + '...';
                                        }
 
+
                                     return `<a href="${escapeHTML(url.href)}" target="_blank" rel="noopener noreferrer">${escapeHTML(linkText)}</a>`;
                                 } catch (e) {
+                                    // Handle invalid URLs gracefully
                                     console.warn("serverposts.js: Invalid link ignored during render:", link, e);
-                                    return '';
+                                    return ''; // Skip invalid links
                                 }
                             }).join('')}
                          </div>` : ''}
@@ -195,11 +236,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function escapeHTML(str) {
         if (typeof str !== 'string') return str;
-        return str.replace(/&/g, '&amp;')
-                  .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;')
-                  .replace(/"/g, '&quot;')
-                  .replace(/'/g, '&#039;');
+        return str.replace(/&/g, '&')
+                  .replace(/</g, '<')
+                  .replace(/>/g, '>')
+                  .replace(/"/g, '"')
+                  .replace(/'/g, ''');
     }
 
     function showPostFormModal() {
@@ -357,11 +398,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function escapeHTML(str) {
         if (typeof str !== 'string') return str;
-        return str.replace(/&/g, '&amp;')
-                  .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;')
-                  .replace(/"/g, '&quot;')
-                  .replace(/'/g, '&#039;');
+        return str.replace(/&/g, '&')
+                  .replace(/</g, '<')
+                  .replace(/>/g, '>')
+                  .replace(/"/g, '"')
+                  .replace(/'/g, ''');
     }
 
     console.log("serverposts.js: Initializing event listeners and loading initial data.");
