@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nico's Information</title>
+    <!-- Google Fonts: Raleway for headings, Open Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
         <!-- Sidebar Toggle Button -->
-        <button id="sidebarToggle" class="sidebar-toggle"> > </button>
+        <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar"> > </button>
 
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -25,18 +30,33 @@
 
         <!-- Main Content Area -->
         <main class="content">
-            <h1>Welcome to Nico's Information</h1>
-            <p>This is the main content area where information about Nico will be displayed.</p>
-            <p>Click the '>' button in the top left to open the sidebar menu.</p>
+            <header class="content-header">
+                 <h1>Welcome to Nico's Information</h1>
+            </header>
 
-            <!-- Add more content here -->
-            <h2>About Nico</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <h2>Projects</h2>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <h2>Contact</h2>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <section class="info-section">
+                <h2>About Nico</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
 
+            <section class="info-section">
+                <h2>Projects</h2>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                <ul>
+                    <li>Project Alpha</li>
+                    <li>Project Beta</li>
+                    <li>Project Gamma</li>
+                </ul>
+            </section>
+
+            <section class="info-section">
+                <h2>Contact</h2>
+                <p>Find me at:</p>
+                <ul>
+                    <li>Email: nico@example.com</li>
+                    <li>Social Media: @nicoinfo</li>
+                </ul>
+            </section>
         </main>
     </div>
 
