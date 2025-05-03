@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nico's Information</title>
+    <!-- Google Fonts: Raleway for headings, Open Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Login/Signup Area (Initially Visible if not logged in) -->
+    <div id="authArea" class="auth-area">
+        <div class="auth-box">
+            <h1 class="auth-title">Nico's Information</h1>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+                <div id="loginError" class="error-message"></div>
+                <p class="toggle-text">Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
+            </form>
+
+            <!-- Signup Form (Initially Hidden) -->
+            <form id="signupForm" class="auth-form" style="display: none;">
+                 <h2>Sign Up</h2>
+                 <div class="form-group">
+                    <label for="signupUsername">Username:</label>
+                    <input type="text" id="signupUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email:</label> <!-- Added Email Field -->
+                    <input type="email" id="signupEmail" required>
+                </div>
+                 <div class="form-group">
+                    <label for="signupPhone">Phone Number (optional):</label>
+                    <input type="tel" id="signupPhone" pattern="[0-9]{10,15}" title="Enter a valid phone number (10-15 digits)">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                 <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                 <div class="form-group math-problem-group">
+                     <label for="mathAnswer">Solve:</label>
+                     <span id="mathProblem"></span> = ?
+                     <input type="number" id="mathAnswer" required autocomplete="off">
+                     <div id="mathError" class="error-message"></div>
+                 </div>
+                <button type="submit" class="auth-button">Sign Up</button>
+                <div id="signupError" class="error-message"></div>
+                 <p class="toggle-text">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Website Content (Initially Hidden) -->
+    <div id="mainContent" class="main-content-wrapper">
+        <div class="container">
+            <!-- Sidebar Toggle Button -->
+            <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar"> > </button>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav>
+                    <!-- Menu items will be dynamically inserted here by script.js -->
+                    <ul id="sidebarNav">
+                        <!-- Admin Menu OR User Menu goes here -->
+                        <!-- Account Management and Logout link will also be added here -->
+                    </ul>
+                </nav>
+                <div class="music-controls">
+                    <p>Background Music</p>
+                    <button id="musicToggle">Play</button>
+                    <audio id="backgroundMusic" loop>
+                        <!-- Replace 'path/to/your/music.mp3' -->
+                        <source src="path/to/your/music.mp3" type="audio/mpeg">
+                         <source src="path/to/your/music.ogg" type="audio/ogg"> <!-- Example fallback -->
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="content">
+                <header id="home-section" class="content-header active-section"> <!-- Added ID and class for showing/hiding -->
+                     <h1>Welcome to Nico's Information</h1>
+                     <p>Everything you need to know, right here.</p>
+                     <!-- Add a message showing logged-in user -->
+                     <p>Logged in as: <strong id="loggedInUsername">Guest</strong></p>
+                </header>
+
+                 <!-- Account Management Section (Visible to all logged-in users) -->
+                <section id="account-management-section" class="info-section hidden-section">
+                     <h2>Account Management</h2>
+                     <p>Manage your profile settings here.</p>
+
+                     <div class="account-profile">
+                         <img id="profilePicturePreview" src="placeholder-profile.png" alt="Profile Picture">
+                         <div class="profile-info">
+                             <p>Username: <strong id="currentUsernameDisplay"></strong></p>
+                             <p>Email: <span id="currentEmailDisplay"></span></p>
+                         </div>
+                     </div>
+
+                     <form id="accountUpdateForm">
+                         <h3>Update Profile</h3>
+
+                         <div class="form-group">
+                             <label for="updateProfilePicture">Profile Picture:</label>
+                             <input type="file" id="updateProfilePicture" accept="image/*">
+                             <small>Max file size 500KB.</small>
+                         </div>
+
+                         <div class="form-group">
+                             <label for="updateUsername">Change Username:</label>
+                             <input type="text" id="updateUsername">
+                              <small id="usernameCooldownMessage"></small>
+                         </div>
+
+                         <div class="form-group">
+                             <label for="currentPasswordForUpdate">Current Password:</label>
+                             <input type="password" id="currentPasswordForUpdate" autocomplete="current-password" required>
+                             <small>Required to change username or password.</small>
+                         </div>
+
+                          <div class="form-group">
+                             <label for="newPassword">New Password:</label>
+                             <input type="password" id="newPassword" autocomplete="new-password">
+                         </div>
+
+                         <div class="form-group">
+                             <label for="confirmNewPassword">Confirm New Password:</label>
+                             <input type="password" id="confirmNewPassword" autocomplete="new-password">
+                         </div>
+
+                         <button type="submit" class="auth-button">Save Changes</button>
+                         <div id="accountUpdateError" class="error-message"></div>
+                         <div id="accountUpdateSuccess" class="success-message"></div> <!-- Added success message div -->
+                     </form>
+
+                 </section>
+
+
+                 <!-- Server Posting Section (Visible to Users) -->
+                <section id="server-posts-section" class="info-section hidden-section"> <!-- Initially hidden -->
+                    <h2>Server Posts</h2>
+                    <p>Share information about your game server here!</p>
+                    <!-- Button to create a post (only visible to non-admin, controlled by JS) -->
+                    <button id="createPostButton" class="action-button user-only">Create New Server Post</button>
+
+                    <!-- Post Creation Form (Modal) -->
+                    <div id="postFormModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-button" id="closePostForm">&times;</span>
+                            <h3>Create Server Post</h3>
+                            <form id="serverPostForm">
+                                <div class="form-group">
+                                    <label for="serverIcon">Server Icon:</label>
+                                    <input type="file" id="serverIcon" accept="image/*">
+                                    <div id="iconPreview" class="image-preview"></div>
+                                     <small>Max file size 500KB.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverName">Server Name:</label>
+                                    <input type="text" id="serverName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverIP">Server IP/Address:</label>
+                                    <input type="text" id="serverIP" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverDescription">Description:</label>
+                                    <textarea id="serverDescription" rows="4" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverScreenshots">Screenshots (optional):</label>
+                                    <input type="file" id="serverScreenshots" accept="image/*" multiple>
+                                    <div id="screenshotsPreview" class="image-preview screenshots-preview"></div>
+                                     <small>Up to 3 screenshots, 1MB each.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverTags">Tags (comma-separated, optional):</label>
+                                    <input type="text" id="serverTags" placeholder="e.g., Survival, Creative, PvP">
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverLinks">Links (comma-separated URLs, optional):</label>
+                                     <small>e.g., Bug Report URL, Mods List URL, Donation URL, Discord Invite URL</small>
+                                    <textarea id="serverLinks" rows="2" placeholder="e.g., https://discord.gg/abc, https://mods.example.com/"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serverVersion">Version:</label>
+                                    <input type="text" id="serverVersion" required placeholder="e.g., 1.20.1">
+                                </div>
+
+                                <button type="submit" class="auth-button">Submit Post</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Container to display server posts -->
+                    <div id="serverPostsList" class="server-posts-list">
+                        <!-- Server posts will be loaded here by JavaScript -->
+                        <p id="noPostsMessage">No server posts yet. Be the first to create one!</p>
+                    </div>
+                </section>
+
+                <!-- User Logs Section (Visible to Admin Only) -->
+                 <section id="user-logs-section" class="info-section hidden-section admin-only"> <!-- Initially hidden -->
+                     <h2>User Logs</h2>
+                     <p>Registered users and their information:</p>
+                     <div id="userLogsList" class="user-logs-list">
+                         <!-- User logs will be loaded here by JavaScript -->
+                         <p id="noLogsMessage">No user registration logs found.</p>
+                     </div>
+                 </section>
+
+
+                <!-- Existing Sections (initially shown with home-section) -->
+                <section id="rules" class="info-section hidden-section">
+                    <h2>Rules</h2>
+                    <p>Please adhere to the following guidelines while using this platform:</p>
+                    <ul>
+                        <li>Rule 1: Be respectful to others.</li>
+                        <li>Rule 2: Do not share personal information publicly.</li>
+                         <li>Rule 3: Do not spam the server posts section.</li>
+                    </ul>
+                </section>
+
+                <section id="credit" class="info-section hidden-section">
+                    <h2>Credit</h2>
+                    <p>This website was designed and developed by Nico, using the following resources:</p>
+                    <ul>
+                        <li>Theme colors based on the provided Skeletonlabs config.</li>
+                        <li>Fonts from Google Fonts (Raleway & Open Sans).</li>
+                         <li>JavaScript for dynamic content and features.</li>
+                    </ul>
+                    <p>Special thanks to the open-source community!</p>
+                </section>
+
+                <section id="settings" class="info-section hidden-section">
+                    <h2>Settings</h2>
+                    <p>Currently, there are no user-specific settings available.</p>
+                    <p>Future updates may include options for:</p>
+                     <ul>
+                        <li>Theme customization.</li>
+                        <li>Notification preferences.</li>
+                    </ul>
+                </section>
+
+                 <section id="about" class="info-section hidden-section">
+                    <h2>About Nico</h2>
+                    <p>This is placeholder text. Replace it with actual information!</p>
+                </section>
+
+                 <section id="projects" class="info-section hidden-section">
+                    <h2>Projects</h2>
+                    <p>More placeholder text. List your projects here!</p>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Link to the JavaScript files -->
+    <!-- Load logininfo.js first -->
+    <script src="js/logininfo.js"></script>
+    <!-- serverposts.js listens for authComplete and 'showServerPosts' -->
+    <script src="js/serverposts.js"></script>
+    <!-- script.js handles menu and section display, listens for authComplete -->
+    <script src="js/script.js"></script>
+    <!-- music.js depends on elements in #mainContent -->
+    <script src="js/music.js"></script>
+</body>
+</html>
