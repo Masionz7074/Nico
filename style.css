@@ -1,17 +1,15 @@
 /* Define CSS Custom Properties (Variables) from the theme config */
-/* We'll adjust how these are used slightly for better visual appeal */
 :root {
     /* =~= Theme Properties =~= */
     --theme-font-family-base: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Used Open Sans */
     --theme-font-family-heading: 'Raleway', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif; /* Used Raleway */
-    --theme-font-color-base: 0 0 0; /* RGB - Black */
+    --theme-font-color-base: 20 20 20; /* Near black */
     /* Note: --theme-font-color-dark uses a color variable, defined below */
     --theme-rounded-base: 9999px; /* pill shape */
-    --theme-rounded-container: 8px; /* Slightly larger round for blocks */
+    --theme-rounded-container: 12px; /* More prominent rounding for blocks */
     --theme-border-base: 0px;
 
     /* =~= Theme On-X Colors =~= */
-    /* These determine text color *on top of* the respective primary/secondary/etc color */
     --on-primary: 137 185 106; /* Success 700 as specified */
     --on-secondary: 255 255 255; /* White - good contrast on dark secondary */
     --on-tertiary: 255 255 255;
@@ -20,90 +18,35 @@
     --on-error: 255 255 255; /* White - good contrast on red */
     --on-surface: 0 0 0; /* Black - good contrast on light surface */
 
-    /* =~= Theme Colors (RGB) =~= */
-    /* primary | #27a0dd (A vibrant blue) */
-    --color-primary-50: 223 241 250;
-    --color-primary-100: 212 236 248;
-    --color-primary-200: 201 231 247;
-    --color-primary-300: 169 217 241;
-    --color-primary-400: 104 189 231;
-    --color-primary-500: 39 160 221;
-    --color-primary-600: 35 144 199;
-    --color-primary-700: 29 120 166;
-    --color-primary-800: 23 96 133;
-    --color-primary-900: 19 78 108;
-
-    /* secondary | #1159a6 (A deeper blue) */
-    --color-secondary-50: 219 230 242;
-    --color-secondary-100: 207 222 237;
-    --color-secondary-200: 196 214 233;
-    --color-secondary-300: 160 189 219;
-    --color-secondary-400: 88 139 193;
-    --color-secondary-500: 17 89 166;
-    --color-secondary-600: 15 80 149;
-    --color-secondary-700: 13 67 125;
-    --color-secondary-800: 10 53 100;
-    --color-secondary-900: 8 44 81;
-
-    /* tertiary | #9a288b (A vibrant purple/pink) */
-    --color-tertiary-50: 240 223 238;
-    --color-tertiary-100: 235 212 232;
-    --color-tertiary-200: 230 201 226;
-    --color-tertiary-300: 215 169 209;
-    --color-tertiary-400: 184 105 174;
-    --color-tertiary-500: 154 40 139;
-    --color-tertiary-600: 139 36 125;
-    --color-tertiary-700: 116 30 104;
-    --color-tertiary-800: 92 24 83;
-    --color-tertiary-900: 75 20 68;
-
-    /* success | #b7f68d (A bright green) */
-    --color-success-50: 244 254 238;
-    --color-success-100: 241 253 232;
-    --color-success-200: 237 253 227;
-    --color-success-300: 226 251 209;
-    --color-success-400: 205 249 175;
-    --color-success-500: 183 246 141;
-    --color-success-600: 165 221 127;
-    --color-success-700: 137 185 106;
-    --color-success-800: 110 148 85;
-    --color-success-900: 90 121 69;
-
-    /* warning | #a8e070 (A yellowish green) */
-    --color-warning-50: 242 250 234;
-    --color-warning-100: 238 249 226;
-    --color-warning-200: 233 247 219;
-    --color-warning-300: 220 243 198;
-    --color-warning-400: 194 233 155;
-    --color-warning-500: 168 224 112;
-    --color-warning-600: 151 202 101;
-    --color-warning-700: 126 168 84;
-    --color-warning-800: 101 134 67;
-    --color-warning-900: 82 110 55;
-
-    /* error | #eb0000 (A strong red) */
-    --color-error-50: 252 217 217;
-    --color-error-100: 251 204 204;
-    --color-error-200: 250 191 191;
-    --color-error-300: 247 153 153;
-    --color-error-400: 241 77 77;
-    --color-error-500: 235 0 0;
-    --color-error-600: 212 0 0;
-    --color-error-700: 176 0 0;
-    --color-error-800: 141 0 0;
-    --color-error-900: 115 0 0;
-
-    /* surface | #84e6df (A light cyan/teal) */
-    --color-surface-50: 237 251 250;
-    --color-surface-100: 230 250 249;
-    --color-surface-200: 224 249 247;
-    --color-surface-300: 206 245 242;
-    --color-surface-400: 169 238 233;
-    --color-surface-500: 132 230 223;
-    --color-surface-600: 119 207 201;
-    --color-surface-700: 99 173 167;
-    --color-surface-800: 79 138 134;
-    --color-surface-900: 65 113 109;
+    /* =~= Theme Colors (RGB) - Keep your original colors */
+    /* primary | #27a0dd */
+    --color-primary-50: 223 241 250; --color-primary-100: 212 236 248; --color-primary-200: 201 231 247; --color-primary-300: 169 217 241;
+    --color-primary-400: 104 189 231; --color-primary-500: 39 160 221; --color-primary-600: 35 144 199; --color-primary-700: 29 120 166;
+    --color-primary-800: 23 96 133; --color-primary-900: 19 78 108;
+    /* secondary | #1159a6 */
+    --color-secondary-50: 219 230 242; --color-secondary-100: 207 222 237; --color-secondary-200: 196 214 233; --color-secondary-300: 160 189 219;
+    --color-secondary-400: 88 139 193; --color-secondary-500: 17 89 166; --color-secondary-600: 15 80 149; --color-secondary-700: 13 67 125;
+    --color-secondary-800: 10 53 100; --color-secondary-900: 8 44 81;
+    /* tertiary | #9a288b */
+    --color-tertiary-50: 240 223 238; --color-tertiary-100: 235 212 232; --color-tertiary-200: 230 201 226; --color-tertiary-300: 215 169 209;
+    --color-tertiary-400: 184 105 174; --color-tertiary-500: 154 40 139; --color-tertiary-600: 139 36 125; --color-tertiary-700: 116 30 104;
+    --color-tertiary-800: 92 24 83; --color-tertiary-900: 75 20 68;
+    /* success | #b7f68d */
+    --color-success-50: 244 254 238; --color-success-100: 241 253 232; --color-success-200: 237 253 227; --color-success-300: 226 251 209;
+    --color-success-400: 205 249 175; --color-success-500: 183 246 141; --color-success-600: 165 221 127; --color-success-700: 137 185 106;
+    --color-success-800: 110 148 85; --color-success-900: 90 121 69;
+    /* warning | #a8e070 */
+    --color-warning-50: 242 250 234; --color-warning-100: 238 249 226; --color-warning-200: 233 247 219; --color-warning-300: 220 243 198;
+    --color-warning-400: 194 233 155; --color-warning-500: 168 224 112; --color-warning-600: 151 202 101; --color-warning-700: 126 168 84;
+    --color-warning-800: 101 134 67; --color-warning-900: 82 110 55;
+    /* error | #eb0000 */
+    --color-error-50: 252 217 217; --color-error-100: 251 204 204; --color-error-200: 250 191 191; --color-error-300: 247 153 153;
+    --color-error-400: 241 77 77; --color-error-500: 235 0 0; --color-error-600: 212 0 0; --color-error-700: 176 0 0;
+    --color-error-800: 141 0 0; --color-error-900: 115 0 0;
+    /* surface | #84e6df */
+    --color-surface-50: 237 251 250; --color-surface-100: 230 250 249; --color-surface-200: 224 249 247; --color-surface-300: 206 245 242;
+    --color-surface-400: 169 238 233; --color-surface-500: 132 230 223; --color-surface-600: 119 207 201; --color-surface-700: 99 173 167;
+    --color-surface-800: 79 138 134; --color-surface-900: 65 113 109;
 
     /* Derived theme properties */
     --theme-font-color-dark: rgb(var(--color-primary-900)); /* Dark text color */
@@ -112,13 +55,14 @@
     --theme-sidebar-background: rgb(var(--color-secondary-800)); /* Darker secondary for sidebar */
     --theme-sidebar-text: rgb(var(--on-secondary)); /* Text color for sidebar */
     --theme-primary-accent: rgb(var(--color-primary-500)); /* Primary color for accents */
+    --theme-secondary-accent: rgb(var(--color-secondary-500)); /* Secondary color for accents */
 }
 
 /* Basic Reset and Body Styles */
 body {
     margin: 0;
     font-family: var(--theme-font-family-base);
-    color: rgb(var(--theme-font-color-base)); /* Base black text */
+    color: rgb(var(--theme-font-color-base)); /* Base text color */
     line-height: 1.7; /* Improved line spacing */
     background-color: var(--theme-background-base); /* Light surface background */
     overflow-x: hidden; /* Prevent horizontal scroll during sidebar transition */
@@ -128,60 +72,80 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--theme-font-family-heading);
     color: var(--theme-font-color-dark); /* Use the dark theme color for headings */
-    margin-top: 0; /* Reset default top margin */
-    margin-bottom: 0.5em; /* Add bottom margin */
+    margin-top: 0;
+    margin-bottom: 0.5em;
     font-weight: 700; /* Raleway bold */
+    line-height: 1.3;
 }
 
 h1 {
-    font-size: 2.5em; /* Larger heading */
-    margin-bottom: 1rem;
+    font-size: 2.8em; /* Larger main heading */
+    margin-bottom: 0.5rem;
     color: var(--theme-primary-accent); /* Primary color for main title */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
 }
 
 h2 {
-     font-size: 1.8em;
-     margin-bottom: 0.8rem;
-     border-bottom: 2px solid rgba(var(--color-primary-500), 0.2); /* Subtle underline */
-     padding-bottom: 5px;
+     font-size: 2em;
+     margin-bottom: 1rem;
+     color: var(--theme-secondary-accent); /* Secondary color for section titles */
+     position: relative; /* For pseudo-element underline */
+     padding-bottom: 10px;
 }
 
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px; /* Short underline */
+    height: 3px;
+    background-color: var(--theme-primary-accent); /* Primary color underline */
+    border-radius: var(--theme-rounded-base);
+}
+
+
 p {
-    margin-bottom: 1em; /* Space out paragraphs */
+    margin-bottom: 1em;
 }
 
 ul {
-    padding-left: 20px; /* Indent lists */
+    padding-left: 25px; /* More indentation for lists */
     margin-bottom: 1em;
 }
 
 li {
-    margin-bottom: 5px; /* Space out list items */
+    margin-bottom: 8px; /* Space out list items */
 }
-
 
 /* Container for layout */
 .container {
     display: flex;
-    min-height: 100vh; /* Make container at least viewport height */
-    position: relative; /* Needed for absolute sidebar toggle positioning relative to the container */
+    min-height: 100vh;
+    position: relative;
 }
 
 /* Sidebar Styles */
 .sidebar {
     width: 0; /* Initially hidden */
-    overflow-x: hidden; /* Hide content when collapsed */
+    overflow: hidden; /* Hide content and scrollbars */
     background-color: var(--theme-sidebar-background); /* Dark secondary background */
     color: var(--theme-sidebar-text); /* Text color for sidebar */
     transition: width 0.3s ease; /* Smooth sidebar width transition */
-    flex-shrink: 0; /* Prevent sidebar from shrinking below its width */
-    padding-top: 60px; /* Space for the toggle button fixed at the top */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Subtle shadow on the right edge */
+    flex-shrink: 0;
+    padding-top: 80px; /* Space for the toggle button and potential logo */
+    box-shadow: 4px 0 10px rgba(0,0,0,0.3); /* More prominent shadow */
     position: fixed; /* Fix the sidebar position */
     height: 100%; /* Full height */
     top: 0;
     left: 0;
     z-index: 50; /* Below the toggle button */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack children vertically */
+}
+
+.sidebar nav {
+    flex-grow: 1; /* Make nav take up available space */
 }
 
 .sidebar nav ul {
@@ -191,121 +155,192 @@ li {
 }
 
 .sidebar nav li {
-    margin-bottom: 0; /* Remove list item margin */
+    margin-bottom: 0;
 }
 
 .sidebar nav a {
     display: block;
-    padding: 15px 25px; /* More padding */
-    color: var(--theme-sidebar-text); /* Link color */
+    padding: 15px 25px;
+    color: var(--theme-sidebar-text);
     text-decoration: none;
-    font-weight: 600; /* Open Sans semi-bold */
+    font-weight: 600;
     transition: background-color 0.2s ease, color 0.2s ease;
     font-size: 1.1em;
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Subtle separator */
 }
+
+.sidebar nav a:last-child {
+     border-bottom: none; /* No border on the last link */
+}
+
 
 .sidebar nav a:hover {
     background-color: rgba(var(--color-primary-500), 0.2); /* Primary color hover effect */
     color: rgb(var(--on-primary)); /* Match text color for on-primary */
 }
 
+/* Music Controls in Sidebar */
+.music-controls {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.2); /* Separator from nav */
+    background-color: rgba(0,0,0,0.1); /* Slightly darker background */
+    color: rgba(var(--on-secondary), 0.8); /* Slightly dimmer text */
+}
+
+.music-controls p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.music-controls button {
+    background-color: var(--theme-primary-accent);
+    color: rgb(var(--on-primary));
+    border: var(--theme-border-base);
+    border-radius: var(--theme-rounded-base);
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.music-controls button:hover {
+    background-color: rgb(var(--color-primary-600));
+    opacity: 0.95;
+}
+
+/* Hide the default audio player UI */
+#backgroundMusic {
+    display: none;
+}
+
 
 /* Main Content Styles */
 .content {
-    flex-grow: 1; /* Take up remaining space */
-    padding: 20px;
+    flex-grow: 1;
+    padding: 30px; /* More padding */
     margin-left: 0; /* Initial margin */
     transition: margin-left 0.3s ease; /* Smooth margin transition */
-    /* Add some styling to the content area itself */
     background-color: var(--theme-card-background);
     border-radius: var(--theme-rounded-container);
-    margin: 20px auto; /* Center content and add overall margin */
+    margin: 30px auto; /* Center content and add overall margin */
     max-width: 1000px; /* Limit content width for readability */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for the content block */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* More prominent shadow */
+    line-height: 1.8; /* Slightly increased line height for paragraphs */
 }
 
 .content-header {
-    text-align: center; /* Center the main title */
-    margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 40px; /* More space below header */
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(var(--color-surface-700), 0.2); /* Header separator */
 }
+
+.content-header p {
+    font-size: 1.2em;
+    color: rgb(var(--theme-font-color-base)); /* Use base text color */
+    margin-top: 10px;
+}
+
 
 .info-section {
-    margin-bottom: 30px; /* Space out sections */
-    padding-bottom: 20px; /* Add padding below section */
-    border-bottom: 1px dashed rgba(var(--color-surface-700), 0.3); /* Subtle separator */
-}
-
-.info-section:last-child {
-    border-bottom: none; /* No border on the last section */
-    margin-bottom: 0;
-    padding-bottom: 0;
+    margin-bottom: 40px; /* More space between sections */
+    padding-top: 20px; /* Padding above section */
+    /* No bottom border here, using h2 underline instead */
 }
 
 
 /* Sidebar Toggle Button */
 .sidebar-toggle {
-    position: fixed; /* Stay in place */
-    top: 15px; /* Adjusted position */
-    left: 15px; /* Initial position */
-    z-index: 100; /* Stay on top */
-    background-color: var(--theme-primary-accent); /* Primary color */
-    color: rgb(var(--on-primary)); /* Text color on primary */
+    position: fixed;
+    top: 20px; /* Adjusted position */
+    left: 20px; /* Initial position */
+    z-index: 100;
+    background-color: var(--theme-primary-accent);
+    color: rgb(var(--on-primary));
     border: var(--theme-border-base);
     border-radius: var(--theme-rounded-base); /* Pill shape */
-    padding: 8px 18px; /* More padding */
+    padding: 10px 20px; /* More padding */
     cursor: pointer;
-    font-size: 1.5em; /* Larger text */
-    transition: left 0.3s ease, background-color 0.2s ease; /* Smooth movement and color transition */
-    line-height: 1; /* Prevent extra space */
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2); /* More prominent shadow */
+    font-size: 1.6em; /* Larger text */
+    transition: left 0.3s ease, background-color 0.2s ease, transform 0.2s ease; /* Smooth movement, color, and potential hover effect */
+    line-height: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25); /* More prominent shadow */
     font-weight: bold;
-    display: flex; /* Use flexbox to center the content if needed */
+    display: flex;
     align-items: center;
     justify-content: center;
+    outline: none; /* Remove default focus outline */
 }
 
 .sidebar-toggle:hover {
-    background-color: rgb(var(--color-primary-600)); /* Slightly darker primary on hover */
+    background-color: rgb(var(--color-primary-600));
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+.sidebar-toggle:active {
+     transform: scale(0.98); /* Slight press effect */
 }
 
 
 /* State when sidebar is open */
 .container.sidebar-open .sidebar {
-    width: 250px; /* Wider sidebar */
+    width: 280px; /* Wider sidebar */
 }
 
 /* When sidebar is open, push content and button */
 .container.sidebar-open .content {
-    /* For fixed sidebar, content doesn't technically move, but adding margin
-       gives the appearance of it being pushed. */
-    margin-left: calc(20px + 250px); /* Sidebar width + original left margin */
+    margin-left: calc(30px + 280px); /* Sidebar width + original left margin (from `margin: 30px auto;`) */
 }
 
 .container.sidebar-open .sidebar-toggle {
-    left: calc(15px + 250px); /* Button position = Sidebar width + original left position */
+    left: calc(20px + 280px); /* Button position = Sidebar width + original left position */
 }
 
-/* Small screen adjustments (optional but recommended for modern design) */
+/* Small screen adjustments */
 @media (max-width: 768px) {
     h1 { font-size: 2em; }
     h2 { font-size: 1.5em; }
+     h2::after { width: 30px; } /* Shorter underline on smaller screens */
+
     .content {
-        padding: 15px;
-        margin: 15px; /* Reduce margin on small screens */
+        padding: 20px;
+        margin: 20px auto; /* Reduce margin on small screens */
+         max-width: 95%; /* Allow content to take up more width */
     }
-    .sidebar {
-        /* Maybe adjust sidebar width slightly on smaller screens */
-         width: 0; /* Start hidden */
-    }
+
+     .sidebar-toggle {
+         top: 15px;
+         left: 15px;
+         font-size: 1.4em;
+         padding: 8px 18px;
+     }
+
      .container.sidebar-open .sidebar {
-         width: 200px; /* Slightly narrower sidebar on small screens */
+         width: 220px; /* Slightly narrower sidebar on small screens */
      }
 
      .container.sidebar-open .content {
-         margin-left: calc(15px + 200px); /* Adjust margin based on new sidebar width and content margin */
+         margin-left: calc(20px + 220px); /* Adjust margin based on new sidebar width and content margin */
      }
 
       .container.sidebar-open .sidebar-toggle {
-        left: calc(15px + 200px); /* Adjust button position */
+        left: calc(15px + 220px); /* Adjust button position */
+     }
+
+     .sidebar nav a {
+         padding: 12px 20px; /* Adjust sidebar link padding */
+         font-size: 1em;
+     }
+
+     .music-controls {
+         padding: 15px;
+     }
+
+     .music-controls button {
+         padding: 6px 15px;
      }
 }
