@@ -1,0 +1,917 @@
+/* style.css */
+
+/* Import fonts from your provided styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+@import url(https://fonts.googleapis.com/css?family=Roboto:300); /* Added Roboto */
+
+
+/* Define CSS Custom Properties (Variables) from the theme config */
+:root {
+    /* =~= Theme Properties =~= */
+    --theme-font-family-base: 'Open Sans', 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif; /* Added Roboto fallback */
+    --theme-font-family-heading: 'Raleway', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    --theme-font-color-base: 20 20 20; /* Near black */
+    --theme-font-color-dark: rgb(var(--color-primary-900)); /* Dark text color */
+    --theme-rounded-base: 9999px; /* pill shape */
+    --theme-rounded-container: 12px; /* More prominent rounding for blocks */
+    --theme-border-base: 0px;
+
+    /* =~= Theme On-X Colors =~= */
+    --on-primary: 137 185 106; /* Success 700 as specified */
+    --on-secondary: 255 255 255; /* White - good contrast on dark secondary */
+    --on-tertiary: 255 255 255;
+    --on-success: 0 0 0;
+    --on-warning: 0 0 0;
+    --on-error: 255 255 255; /* White - good contrast on red */
+    --on-surface: 0 0 0; /* Black - good contrast on light surface */
+
+    /* =~= Theme Colors (RGB) - Keep your original colors */
+    --color-primary-50: 223 241 250; --color-primary-100: 212 236 248; --color-primary-200: 201 231 247; --color-primary-300: 169 217 241;
+    --color-primary-400: 104 189 231; --color-primary-500: 39 160 221; --color-primary-600: 35 144 199; --color-primary-700: 29 120 166;
+    --color-primary-800: 23 96 133; --color-primary-900: 19 78 108;
+    --color-secondary-50: 219 230 242; --color-secondary-100: 207 222 237; --color-secondary-200: 196 214 233; --color-secondary-300: 160 189 219;
+    --color-secondary-400: 88 139 193; --color-secondary-500: 17 89 166; --color-secondary-600: 15 80 149; --color-secondary-700: 13 67 125;
+    --color-secondary-800: 10 53 100; --color-secondary-900: 8 44 81;
+    /* tertiary | #9a288b */
+    --color-tertiary-50: 240 223 238; --color-tertiary-100: 235 212 232; --color-tertiary-200: 230 201 226; --color-tertiary-300: 215 169 209;
+    --color-tertiary-400: 184 105 174; --color-tertiary-500: 154 40 139; --color-tertiary-600: 139 36 125; --color-tertiary-700: 116 30 104;
+    --color-tertiary-800: 92 24 83; --color-tertiary-900: 75 20 68;
+    /* success | #b7f68d */
+    --color-success-50: 244 254 238; --color-success-100: 241 253 232; --color-success-200: 237 253 227; --color-success-300: 226 251 209;
+    --color-success-400: 205 249 175; --color-success-500: 183 246 141; --color-success-600: 165 221 127; --color-success-700: 137 185 106;
+    --color-success-800: 110 148 85; --color-success-900: 90 121 69;
+    /* warning | #a8e070 */
+    --color-warning-50: 242 250 234; --color-warning-100: 238 249 226; --color-warning-200: 233 247 219; --color-warning-300: 220 243 198;
+    --color-warning-400: 194 233 155; --color-warning-500: 168 224 112; --color-warning-600: 151 202 101; --color-warning-700: 126 168 84;
+    --color-warning-800: 101 134 67; --color-warning-900: 82 110 55;
+    /* error | #eb0000 */
+    --color-error-50: 252 217 217; --color-error-100: 251 204 204; --color-error-200: 250 191 191; --color-error-300: 247 153 153;
+    --color-error-400: 241 77 77; --color-error-500: 235 0 0; --color-error-600: 212 0 0; --color-error-700: 176 0 0;
+    --color-error-800: 141 0 0; --color-error-900: 115 0 0;
+    /* surface | #84e6df */
+    --color-surface-50: 237 251 250; --color-surface-100: 230 250 249; --color-surface-200: 224 249 247; --color-surface-300: 206 245 242;
+    --color-surface-400: 169 238 233; --color-surface-500: 132 230 223; --color-surface-600: 119 207 201; --color-surface-700: 99 173 167;
+    --color-surface-800: 79 138 134; --color-surface-900: 65 113 109;
+
+    /* Derived theme properties */
+    --theme-background-base: rgb(var(--color-surface-50)); /* Light background color for body */
+    --theme-card-background: rgb(255, 255, 255); /* White background for content blocks and modals */
+    --theme-sidebar-background: rgb(var(--color-secondary-800)); /* Darker secondary for sidebar */
+    --theme-sidebar-text: rgb(var(--on-secondary)); /* Text color for sidebar */
+    --theme-primary-accent: rgb(var(--color-primary-500)); /* Primary color for accents (titles, buttons) */
+    --theme-secondary-accent: rgb(var(--color-secondary-500)); /* Secondary color for accents (subtitles, links) */
+    --theme-tertiary-accent: rgb(var(--color-tertiary-500)); /* Tertiary for tags/accents */
+    --theme-error-color: rgb(var(--color-error-500)); /* Error text color */
+    --theme-success-color: rgb(var(--color-success-500)); /* Success color for moderation status & success messages */
+    --theme-warning-color: rgb(var(--color-warning-500)); /* Warning color for moderation status and warnings */
+    --theme-info-color: rgb(var(--color-primary-500)); /* Info color for logs/details and info messages */
+    --theme-font-color-dark: rgb(var(--color-primary-900)); /* Dark text color */
+
+    /* Custom variables from provided login CSS (renamed to avoid conflict) */
+    --auth-bg-image: url('https://ordinaryfaith.net/wp-content/uploads/2016/03/Gray-plain-website-background.jpg');
+    --auth-form-bg: #48c9b0;
+    --auth-input-bg: #f2f2f2;
+    --auth-button-bg: #17a589;
+    --auth-button-hover-bg: #148f77;
+    --auth-link-color: #FFFFFF;
+    --auth-message-color: #808080;
+}
+
+/* BASIC RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Use theme fonts */
+  font-family: var(--theme-font-family-base);
+}
+
+
+/* === General Body and Base Styles === */
+/* Combined styles from original theme and provided CSS */
+body {
+    margin: 0;
+    /* Use provided background image if you like, otherwise keep theme-background-base */
+    /* background-image: var(--auth-bg-image); */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* Or use the linear gradient from provided CSS, overriding theme-background-base */
+    background: #76b852; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+    background: -moz-linear-gradient(right, #76b852, #8DC26F);
+    background: -o-linear-gradient(right, #76b852, #8DC26F);
+    background: linear-gradient(to left, #76b852, #8DC26F);
+
+    color: rgb(var(--theme-font-color-base)); /* Use theme base color */
+    line-height: 1.7;
+    overflow-x: hidden;
+    padding: 0;
+
+    -webkit-font-smoothing: antialiased; /* from provided CSS */
+    -moz-osx-font-smoothing: grayscale; /* from provided CSS */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--theme-font-family-heading);
+    color: var(--theme-font-color-dark);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.8em;
+    margin-bottom: 0.5rem;
+    color: var(--theme-primary-accent);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+h2 {
+     font-size: 2em;
+     margin-bottom: 1rem;
+     color: var(--theme-secondary-accent);
+     position: relative;
+     padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--theme-primary-accent);
+    border-radius: var(--theme-rounded-base);
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    color: var(--theme-font-color-dark);
+}
+
+h4 {
+    font-family: var(--theme-font-family-base);
+    font-size: 1.1em;
+    color: rgba(var(--theme-font-color-dark), 0.9);
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+
+p {
+    margin-bottom: 1em;
+}
+
+ul {
+    padding-left: 25px;
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+a {
+    color: var(--theme-primary-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: rgb(var(--color-primary-700));
+    text-decoration: underline;
+}
+
+small {
+    display: block;
+    margin-top: 5px;
+    color: rgba(var(--theme-font-color-base), 0.7);
+    font-size: 0.85em;
+}
+
+
+/* --- Removed Login/Signup Area Styles from previous iteration --- */
+/* --- Also removing styles from provided login/signup CSS that are specific to its layout --- */
+/* Removed .login-page, .form, .form input, .form button, .form .message, .register-form, .container (login one), .container .info */
+
+
+/* === Main Layout Container === */
+/* The .container now wraps the main layout */
+.container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* === Sidebar Styles === */
+.sidebar {
+    width: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: var(--theme-sidebar-background);
+    color: var(--theme-sidebar-text);
+    transition: width 0.3s ease;
+    flex-shrink: 0;
+    padding-top: 80px;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.3);
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar nav {
+    flex-grow: 1;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav li {
+    margin-bottom: 0;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 15px 25px;
+    color: var(--theme-sidebar-text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 1.1em;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+}
+
+.sidebar nav a:last-child {
+     border-bottom: none;
+}
+
+.sidebar nav a:hover {
+    background-color: rgba(var(--color-primary-500), 0.2);
+    color: rgb(var(--on-primary));
+}
+
+
+/* Music Controls in Sidebar */
+.music-controls {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    background-color: rgba(0,0,0,0.1);
+    color: rgba(var(--on-secondary), 0.8);
+    flex-shrink: 0;
+}
+
+.music-controls p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+/* Using theme-based button style for music toggle */
+.music-controls button {
+    background-color: var(--theme-primary-accent);
+    color: rgb(var(--on-primary));
+    border: var(--theme-border-base);
+    border-radius: var(--theme-rounded-base);
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    outline: none;
+}
+
+.music-controls button:hover {
+    background-color: rgb(var(--color-primary-600));
+    opacity: 0.95;
+     transform: translateY(-1px); /* Subtle hover lift */
+     box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.music-controls button:active {
+    transform: translateY(0); /* Press effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+/* Hide the default audio player UI */
+#backgroundMusic {
+    display: none;
+}
+
+
+/* Main Content Styles */
+.content {
+    flex-grow: 1;
+    padding: 30px;
+    transition: margin-left 0.3s ease; /* Smooth margin transition for sidebar push */
+    background-color: var(--theme-card-background);
+    border-radius: var(--theme-rounded-container);
+    margin: 30px; /* Keep margin, but remove auto for centering with sidebar */
+    margin-left: 30px; /* Add initial left margin */
+    max-width: 1000px; /* Limit content width for readability */
+    width: calc(100% - 60px); /* Adjust width based on horizontal margins (30px left + 30px right) */
+    box-sizing: border-box; /* Include padding and border in width */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    line-height: 1.8;
+    min-height: calc(100vh - 60px);
+    overflow-y: auto; /* Add vertical scroll if content overflows */
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+/* Adjusted margin for content when sidebar is open */
+.container.sidebar-open .content {
+    margin-left: calc(30px + 280px); /* Sidebar width + original left margin */
+    /* Adjust width to compensate for margin shift. 100% refers to the width of the .container flex item */
+    width: calc(100% - 30px - 30px - 280px); /* Total container width - (original left margin + original right margin + sidebar width) */
+     /* Re-calculate width to be 100% of the *available space* minus its own left/right padding/border,
+        offset by the margin-left shift. */
+     /* A simpler approach if max-width is used is often just adjusting margin-left */
+     /* Let's stick to the simpler margin adjustment */
+     /* The original width calc might be better if container didn't have margin auto */
+     /* Let's use a fixed value relative to viewport width for simplicity here */
+      width: calc(100vw - 60px - 280px); /* Total viewport width - (total horizontal content margin) - (sidebar width) */
+      max-width: calc(1000px - 280px); /* Adjust max width too */
+}
+/* Revert the complex width calculation */
+.content {
+     width: auto; /* Allow content to take up space within margin/max-width */
+}
+.container.sidebar-open .content {
+    margin-left: calc(30px + 280px);
+    /* The width calc needs to consider the total available space vs the fixed sidebar */
+    /* It's complex with fixed sidebar and content margin/max-width */
+    /* Let's simplify: content takes remaining space, handle scroll inside */
+    /* The overflow-y: auto should be sufficient */
+    /* Remove the width calc if it's causing issues */
+     width: auto; /* Revert to auto width controlled by flex-grow and margin */
+     max-width: 1000px; /* Max width still applies */
+}
+/* Let's test just margin-left adjustment and max-width */
+
+
+.content-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(var(--color-surface-700), 0.2);
+}
+
+.content-header p {
+    font-size: 1.2em;
+    color: rgb(var(--theme-font-color-base));
+    margin-top: 10px;
+}
+
+/* Styling for all sections when displayed */
+.info-section {
+    margin-bottom: 40px; /* Space between sections */
+    padding-top: 20px; /* Padding above section content */
+}
+
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background-color: var(--theme-primary-accent);
+    color: rgb(var(--on-primary));
+    border: var(--theme-border-base);
+    border-radius: var(--theme-rounded-base);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.6em;
+    transition: left 0.3s ease, background-color 0.2s ease, transform 0.2s ease;
+    line-height: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgb(var(--color-primary-600));
+    transform: scale(1.05);
+}
+
+.sidebar-toggle:active {
+    transform: scale(0.98);
+}
+
+
+/* State when sidebar is open */
+.container.sidebar-open .sidebar {
+    width: 280px;
+}
+
+/* Sidebar toggle position when sidebar is open */
+.container.sidebar-open .sidebar-toggle {
+    left: calc(20px + 280px);
+}
+
+
+/* === Removed Account Management Specific Styles === */
+
+/* === Server Posts Specific Styles === */
+
+/* Using theme-based button style for Create Post button */
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--theme-secondary-accent); /* Use secondary accent */
+    color: rgb(var(--on-secondary));
+    border: var(--theme-border-base);
+    border-radius: var(--theme-rounded-base);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+    outline: none;
+}
+.action-button:hover {
+    background-color: rgb(var(--color-secondary-600)); /* Darker secondary on hover */
+     transform: translateY(-1px);
+     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+.action-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--theme-card-background); /* Use theme background */
+    margin: auto;
+    padding: 30px;
+    border-radius: var(--theme-rounded-container);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    max-width: 600px;
+    width: 95%;
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--theme-error-color);
+    text-decoration: none;
+}
+
+/* Image Preview Styles (used in modal) */
+.image-preview {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.image-preview img {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid rgb(var(--color-surface-400));
+    border-radius: var(--theme-rounded-container);
+    object-fit: cover;
+}
+.screenshots-preview img {
+    max-width: 150px;
+    max-height: 120px;
+}
+
+/* Using theme-based form styles for the modal form */
+#serverPostForm .form-group { /* Targeting specifically modal form groups */
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+#serverPostForm .form-group label { /* Targeting specifically modal form labels */
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: rgb(var(--theme-font-color-base));
+}
+
+#serverPostForm .form-group input[type="text"],
+#serverPostForm .form-group input[type="password"], /* Include password just in case */
+#serverPostForm .form-group input[type="tel"],
+#serverPostForm .form-group input[type="number"],
+#serverPostForm .form-group input[type="email"], /* Include email just in case */
+#serverPostForm .form-group textarea { /* Targeting modal form inputs/textarea */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgb(var(--color-surface-700));
+    border-radius: var(--theme-rounded-container);
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+     font-family: var(--theme-font-family-base);
+}
+
+/* Style file inputs in the modal form */
+#serverPostForm .form-group input[type="file"] {
+    padding: 10px 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+#serverPostForm .form-group input[type="file"]::-webkit-file-upload-button {
+    background: var(--theme-secondary-accent); /* Use theme color */
+    color: rgb(var(--on-secondary));
+    padding: 8px 15px;
+    border: none;
+    border-radius: var(--theme-rounded-base);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#serverPostForm .form-group input[type="file"]::file-selector-button { /* Standard syntax */
+     background: var(--theme-secondary-accent); /* Use theme color */
+    color: rgb(var(--on-secondary));
+    padding: 8px 15px;
+    border: none;
+    border-radius: var(--theme-rounded-base);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#serverPostForm .form-group input[type="file"]::-webkit-file-upload-button:hover,
+#serverPostForm .form-group input[type="file"]::file-selector-button:hover {
+    background-color: rgb(var(--color-secondary-600)); /* Darker theme color */
+}
+
+
+#serverPostForm .form-group input:focus,
+#serverPostForm .form-group textarea:focus {
+    outline: none;
+    border-color: var(--theme-primary-accent);
+    box-shadow: 0 0 5px rgba(var(--color-primary-500), 0.5);
+}
+
+/* Using theme-based button style for modal submit button */
+#serverPostForm .auth-button { /* Targeting specifically modal auth-button */
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: var(--theme-primary-accent); /* Use theme color */
+    color: rgb(var(--on-primary));
+    border: var(--theme-border-base);
+    border-radius: var(--theme-rounded-base);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-top: 20px;
+    outline: none;
+}
+
+#serverPostForm .auth-button:hover { /* Targeting modal button hover */
+     background-color: rgb(var(--color-primary-600)); /* Darker theme color */
+     transform: translateY(-2px);
+     box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+}
+
+#serverPostForm .auth-button:active { /* Targeting modal button active */
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+/* Server Posts List */
+.server-posts-list {
+    margin-top: 30px;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+#noPostsMessage {
+     text-align: center;
+     grid-column: 1 / -1;
+     color: rgba(var(--theme-font-color-base), 0.7);
+     font-style: italic;
+}
+
+/* Individual Server Post Card */
+.server-post-card {
+    background-color: var(--theme-card-background);
+    padding: 20px;
+    border-radius: var(--theme-rounded-container);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid rgb(var(--color-surface-300));
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed rgba(var(--color-surface-400), 0.5);
+}
+
+.post-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--theme-rounded-container);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.post-header h3 {
+    margin: 0;
+    flex-grow: 1;
+     font-size: 1.4em;
+     color: var(--theme-secondary-accent);
+}
+
+.post-ip {
+    font-weight: bold;
+    color: var(--theme-font-color-dark);
+    background-color: rgba(var(--color-surface-500), 0.2);
+    padding: 8px;
+    border-radius: var(--theme-rounded-container);
+    font-family: monospace;
+    word-break: break-all;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.post-description {
+    font-size: 0.95em;
+    color: rgba(var(--theme-font-color-base), 0.9);
+}
+
+.post-screenshots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
+}
+.post-screenshots img {
+    max-width: 100px;
+    max-height: 80px;
+    border: 1px solid rgb(var(--color-surface-400));
+    border-radius: var(--theme-rounded-container);
+    object-fit: cover;
+}
+
+.post-tags {
+     margin-top: -10px;
+}
+.post-tags h4 {
+    font-size: 1em;
+    color: rgba(var(--theme-font-color-dark), 0.9);
+    margin-bottom: 5px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.post-tags h4::after { content: none; }
+
+
+.post-tags span {
+    display: inline-block;
+    background-color: rgba(var(--color-tertiary-500), 0.2);
+    color: rgb(var(--color-tertiary-800));
+    padding: 4px 10px;
+    border-radius: var(--theme-rounded-base);
+    font-size: 0.85em;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.post-links h4 {
+    margin-bottom: 5px;
+     font-size: 1em;
+     color: rgba(var(--theme-font-color-dark), 0.9);
+     border-bottom: none;
+     padding-bottom: 0;
+}
+.post-links h4::after { content: none; }
+
+.post-links a {
+     display: inline-block;
+     margin-right: 10px;
+     margin-bottom: 5px;
+     font-size: 0.9em;
+     color: var(--theme-secondary-accent);
+     font-weight: 600;
+}
+
+.post-version {
+    font-size: 0.9em;
+    color: rgba(var(--theme-font-color-base), 0.8);
+    font-weight: 600;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px dashed rgba(var(--color-surface-400), 0.5);
+    padding-top: 15px;
+    font-size: 0.9em;
+     color: rgba(var(--theme-font-color-base), 0.7);
+     flex-wrap: wrap;
+     gap: 10px;
+}
+
+.post-date { /* Style for the date in post footer */
+    margin-right: auto; /* Push date to the left */
+    font-style: italic;
+}
+
+
+/* Removed User Logs Specific Styles */
+
+
+/* === Content Sections Visibility === */
+/* Sections start hidden by default, managed by script.js */
+.info-section, .content-header { /* Apply to all potential sections */
+    display: none;
+}
+
+/* This class is added by JS to the section that should be currently visible */
+.active-section {
+    display: block; /* Use block for main content sections */
+}
+
+
+/* Small screen adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+     h2::after { width: 30px; }
+
+    .content {
+        padding: 20px;
+        margin: 20px;
+         max-width: 100%;
+         min-height: calc(100vh - 40px);
+          overflow-y: auto;
+          overflow-x: hidden;
+    }
+
+     .container.sidebar-open .content {
+        margin-left: calc(20px + 220px);
+        width: calc(100% - 40px - 220px);
+     }
+
+     .sidebar-toggle {
+         top: 15px;
+         left: 15px;
+         font-size: 1.4em;
+         padding: 8px 18px;
+     }
+
+     .container.sidebar-open .sidebar {
+         width: 220px;
+     }
+
+      .container.sidebar-open .sidebar-toggle {
+        left: calc(15px + 220px);
+     }
+
+     .sidebar nav a {
+         padding: 12px 20px;
+         font-size: 1em;
+     }
+
+     .music-controls {
+         padding: 15px;
+     }
+
+     .music-controls button {
+         padding: 6px 15px;
+     }
+
+     /* Adjust modal for small screens */
+     .modal-content {
+         padding: 20px;
+     }
+     .modal-content h3 { font-size: 1.3em; margin-bottom: 15px; }
+
+     #serverPostForm .form-group input[type="text"],
+     #serverPostForm .form-group input[type="tel"],
+     #serverPostForm .form-group input[type="number"],
+     #serverPostForm .form-group input[type="email"],
+     #serverPostForm .form-group textarea {
+         padding: 10px;
+     }
+
+     #serverPostForm .form-group input[type="file"]::-webkit-file-upload-button,
+     #serverPostForm .form-group input[type="file"]::file-selector-button {
+        padding: 6px 10px;
+        font-size: 0.9em;
+     }
+
+
+     .action-button {
+         padding: 8px 15px;
+         font-size: 0.9em;
+     }
+
+     .server-posts-list {
+         gap: 20px;
+         grid-template-columns: 1fr;
+     }
+      .server-post-card {
+          padding: 15px;
+      }
+     .post-header {
+         flex-direction: column;
+         align-items: flex-start;
+         gap: 10px;
+         padding-bottom: 10px;
+     }
+     .post-header img {
+         width: 50px;
+         height: 50px;
+     }
+     .post-header h3 {
+         font-size: 1.2em;
+     }
+     .post-ip {
+         font-size: 0.9em;
+         padding: 6px;
+     }
+     .post-description {
+         font-size: 0.9em;
+     }
+     .post-tags h4, .post-links h4 {
+        font-size: 0.9em;
+     }
+     .post-tags span {
+         font-size: 0.8em;
+         padding: 3px 8px;
+     }
+     .post-links a {
+         font-size: 0.85em;
+     }
+     .post-version {
+         font-size: 0.8em;
+     }
+     .post-footer {
+         flex-direction: column;
+         align-items: flex-start;
+         gap: 10px;
+         padding-top: 10px;
+     }
+}

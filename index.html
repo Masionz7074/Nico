@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nico's Information</title>
+    <!-- Google Fonts: Raleway for headings, Open Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,900&display=swap" rel="stylesheet">
+     <!-- Font Awesome for icons (if used in merged CSS, like eye icons - though removed from HTML now) -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body"> <!-- Added 'body' class for provided CSS background -->
+
+    <!-- Main Website Content (Always Visible) -->
+    <!-- The .container now wraps the main layout -->
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar"> > </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <!-- Static Menu items -->
+                <!-- Added data-target attributes for script.js -->
+                <ul id="sidebarNav">
+                    <li><a href="#home-section" data-target="home-section">Home</a></li>
+                    <li><a href="#rules" data-target="rules">Rules</a></li>
+                    <li><a href="#credit" data-target="credit">Credit</a></li>
+                    <li><a href="#settings" data-target="settings">Settings</a></li>
+                    <li><a href="#server-posts-section" data-target="server-posts-section">Server Posts</a></li>
+                    <!-- Removed Account Management and Admin Menu links -->
+                    <!-- Removed Logout link -->
+                </ul>
+            </nav>
+            <div class="music-controls">
+                <p>Background Music</p>
+                <button id="musicToggle">Play</button>
+                <audio id="backgroundMusic" loop>
+                    <!-- Replace 'path/to/your/music.mp3' with the actual path -->
+                    <!-- You can provide multiple sources for broader browser compatibility -->
+                    <source src="path/to/your/music.mp3" type="audio/mpeg">
+                     <source src="path/to/your/music.ogg" type="audio/ogg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <!-- Made home section active by default, others hidden by CSS/JS -->
+            <header id="home-section" class="content-header active-section">
+                 <h1>Welcome to Nico's Information</h1>
+                 <p>Everything you need to know, right here.</p>
+                 <!-- Removed logged-in username display -->
+            </header>
+
+            <!-- Removed Account Management Section -->
+            <!-- Removed User Logs Section -->
+
+
+             <!-- Server Posting Section -->
+            <section id="server-posts-section" class="info-section hidden-section"> <!-- Initially hidden -->
+                <h2>Server Posts</h2>
+                <p>Share information about game servers here!</p>
+                <!-- Button to create a post (visible to everyone now) -->
+                <button id="createPostButton" class="action-button">Create New Server Post</button>
+
+                <!-- Post Creation Form (Modal) -->
+                <div id="postFormModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button" id="closePostForm">&times;</span>
+                        <h3>Create Server Post</h3>
+                        <form id="serverPostForm">
+                            <div class="form-group">
+                                <label for="serverIcon">Server Icon:</label>
+                                <input type="file" id="serverIcon" accept="image/*">
+                                <div id="iconPreview" class="image-preview"></div>
+                                 <small>Max file size 500KB.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="serverName">Server Name:</label>
+                                <input type="text" id="serverName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="serverIP">Server IP/Address:</label>
+                                <input type="text" id="serverIP" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="serverDescription">Description:</label>
+                                <textarea id="serverDescription" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="serverScreenshots">Screenshots (optional):</label>
+                                <input type="file" id="serverScreenshots" accept="image/*" multiple>
+                                <div id="screenshotsPreview" class="image-preview screenshots-preview"></div>
+                                 <small>Up to 3 screenshots, 1MB each.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="serverTags">Tags (comma-separated, optional):</label>
+                                <input type="text" id="serverTags" placeholder="e.g., Survival, Creative, PvP">
+                            </div>
+                            <div class="form-group">
+                                <label for="serverLinks">Links (comma-separated URLs, optional):</label>
+                                 <small>e.g., Bug Report URL, Mods List URL, Donation URL, Discord Invite URL</small>
+                                <textarea id="serverLinks" rows="2" placeholder="e.g., https://discord.gg/abc, https://mods.example.com/"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="serverVersion">Version:</label>
+                                <input type="text" id="serverVersion" required placeholder="e.g., 1.20.1">
+                            </div>
+
+                            <button type="submit" class="auth-button">Submit Post</button>
+                        </form>
+                    </div>
+
+                    <!-- Container to display server posts -->
+                    <div id="serverPostsList" class="server-posts-list">
+                        <!-- Server posts will be loaded here by JavaScript -->
+                        <p id="noPostsMessage">No server posts yet. Be the first to create one!</p>
+                    </div>
+                </section>
+
+
+                <!-- Existing Sections (hidden by default, shown by script.js) -->
+                <!-- Added hidden-section class to all sections that are not the default home-section -->
+                <section id="rules" class="info-section hidden-section">
+                    <h2>Rules</h2>
+                    <p>Please adhere to the following guidelines while using this platform:</p>
+                    <ul>
+                        <li>Rule 1: Be respectful to others.</li>
+                        <li>Rule 2: Do not share personal information publicly.</li>
+                         <li>Rule 3: Do not spam the server posts section.</li>
+                    </ul>
+                </section>
+
+                <section id="credit" class="info-section hidden-section">
+                    <h2>Credit</h2>
+                    <p>This website was designed and developed by Nico, using the following resources:</p>
+                    <ul>
+                        <li>Theme colors based on the provided Skeletonlabs config.</li>
+                        <li>Fonts from Google Fonts (Raleway & Open Sans).</li>
+                         <li>JavaScript for dynamic content and features.</li>
+                    </ul>
+                    <p>Special thanks to the open-source community!</p>
+                </section>
+
+                <section id="settings" class="info-section hidden-section">
+                    <h2>Settings</h2>
+                    <p>Currently, there are no user-specific settings available.</p>
+                    <p>Future updates may include options for:</p>
+                     <ul>
+                        <li>Theme customization.</li>
+                        <li>Notification preferences.</li>
+                    </ul>
+                </section>
+
+                 <section id="about" class="info-section hidden-section">
+                    <h2>About Nico</h2>
+                    <p>This is placeholder text. Replace it with actual information!</p>
+                </section>
+
+                 <section id="projects" class="info-section hidden-section">
+                    <h2>Projects</h2>
+                    <p>More placeholder text. List your projects here!</p>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Link to the JavaScript files -->
+    <!-- Removed logininfo.js -->
+    <!-- script.js handles menu and section display -->
+    <script src="js/script.js"></script>
+    <!-- serverposts.js handles post creation/display -->
+    <script src="js/serverposts.js"></script>
+    <!-- music.js handles music -->
+    <script src="js/music.js"></script>
+</body>
+</html>
