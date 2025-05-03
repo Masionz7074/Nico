@@ -1,27 +1,27 @@
 /* Define CSS Custom Properties (Variables) from the theme config */
+/* We'll adjust how these are used slightly for better visual appeal */
 :root {
     /* =~= Theme Properties =~= */
-    --theme-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Added fallback */
-    --theme-font-family-heading: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-    --theme-font-color-base: 0 0 0; /* RGB */
+    --theme-font-family-base: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Used Open Sans */
+    --theme-font-family-heading: 'Raleway', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif; /* Used Raleway */
+    --theme-font-color-base: 0 0 0; /* RGB - Black */
     /* Note: --theme-font-color-dark uses a color variable, defined below */
     --theme-rounded-base: 9999px; /* pill shape */
-    --theme-rounded-container: 4px;
+    --theme-rounded-container: 8px; /* Slightly larger round for blocks */
     --theme-border-base: 0px;
 
     /* =~= Theme On-X Colors =~= */
-    /* Note: These assume the background they are on is the color-X variable */
-    /* on-primary should be readable on color-primary-500 */
-    --on-primary: 137 185 106; /* Using color-success-700 as specified */
-    --on-secondary: 0 0 0;
+    /* These determine text color *on top of* the respective primary/secondary/etc color */
+    --on-primary: 137 185 106; /* Success 700 as specified */
+    --on-secondary: 255 255 255; /* White - good contrast on dark secondary */
     --on-tertiary: 255 255 255;
     --on-success: 0 0 0;
     --on-warning: 0 0 0;
-    --on-error: 0 0 0;
-    --on-surface: 255 255 255;
+    --on-error: 255 255 255; /* White - good contrast on red */
+    --on-surface: 0 0 0; /* Black - good contrast on light surface */
 
     /* =~= Theme Colors (RGB) =~= */
-    /* primary | #27a0dd */
+    /* primary | #27a0dd (A vibrant blue) */
     --color-primary-50: 223 241 250;
     --color-primary-100: 212 236 248;
     --color-primary-200: 201 231 247;
@@ -33,7 +33,7 @@
     --color-primary-800: 23 96 133;
     --color-primary-900: 19 78 108;
 
-    /* secondary | #1159a6 */
+    /* secondary | #1159a6 (A deeper blue) */
     --color-secondary-50: 219 230 242;
     --color-secondary-100: 207 222 237;
     --color-secondary-200: 196 214 233;
@@ -45,7 +45,7 @@
     --color-secondary-800: 10 53 100;
     --color-secondary-900: 8 44 81;
 
-    /* tertiary | #9a288b */
+    /* tertiary | #9a288b (A vibrant purple/pink) */
     --color-tertiary-50: 240 223 238;
     --color-tertiary-100: 235 212 232;
     --color-tertiary-200: 230 201 226;
@@ -57,7 +57,7 @@
     --color-tertiary-800: 92 24 83;
     --color-tertiary-900: 75 20 68;
 
-    /* success | #b7f68d */
+    /* success | #b7f68d (A bright green) */
     --color-success-50: 244 254 238;
     --color-success-100: 241 253 232;
     --color-success-200: 237 253 227;
@@ -69,7 +69,7 @@
     --color-success-800: 110 148 85;
     --color-success-900: 90 121 69;
 
-    /* warning | #a8e070 */
+    /* warning | #a8e070 (A yellowish green) */
     --color-warning-50: 242 250 234;
     --color-warning-100: 238 249 226;
     --color-warning-200: 233 247 219;
@@ -81,7 +81,7 @@
     --color-warning-800: 101 134 67;
     --color-warning-900: 82 110 55;
 
-    /* error | #eb0000 */
+    /* error | #eb0000 (A strong red) */
     --color-error-50: 252 217 217;
     --color-error-100: 251 204 204;
     --color-error-200: 250 191 191;
@@ -93,7 +93,7 @@
     --color-error-800: 141 0 0;
     --color-error-900: 115 0 0;
 
-    /* surface | #84e6df */
+    /* surface | #84e6df (A light cyan/teal) */
     --color-surface-50: 237 251 250;
     --color-surface-100: 230 250 249;
     --color-surface-200: 224 249 247;
@@ -106,40 +106,82 @@
     --color-surface-900: 65 113 109;
 
     /* Derived theme properties */
-    --theme-font-color-dark: rgb(var(--color-primary-900));
+    --theme-font-color-dark: rgb(var(--color-primary-900)); /* Dark text color */
+    --theme-background-base: rgb(var(--color-surface-50)); /* Light background color */
+    --theme-card-background: rgb(255, 255, 255); /* White background for content blocks */
+    --theme-sidebar-background: rgb(var(--color-secondary-800)); /* Darker secondary for sidebar */
+    --theme-sidebar-text: rgb(var(--on-secondary)); /* Text color for sidebar */
+    --theme-primary-accent: rgb(var(--color-primary-500)); /* Primary color for accents */
 }
 
 /* Basic Reset and Body Styles */
 body {
     margin: 0;
     font-family: var(--theme-font-family-base);
-    color: rgb(var(--theme-font-color-base));
-    line-height: 1.6;
-    background-color: white; /* Default background */
+    color: rgb(var(--theme-font-color-base)); /* Base black text */
+    line-height: 1.7; /* Improved line spacing */
+    background-color: var(--theme-background-base); /* Light surface background */
     overflow-x: hidden; /* Prevent horizontal scroll during sidebar transition */
+    padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--theme-font-family-heading);
     color: var(--theme-font-color-dark); /* Use the dark theme color for headings */
+    margin-top: 0; /* Reset default top margin */
+    margin-bottom: 0.5em; /* Add bottom margin */
+    font-weight: 700; /* Raleway bold */
 }
+
+h1 {
+    font-size: 2.5em; /* Larger heading */
+    margin-bottom: 1rem;
+    color: var(--theme-primary-accent); /* Primary color for main title */
+}
+
+h2 {
+     font-size: 1.8em;
+     margin-bottom: 0.8rem;
+     border-bottom: 2px solid rgba(var(--color-primary-500), 0.2); /* Subtle underline */
+     padding-bottom: 5px;
+}
+
+p {
+    margin-bottom: 1em; /* Space out paragraphs */
+}
+
+ul {
+    padding-left: 20px; /* Indent lists */
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 5px; /* Space out list items */
+}
+
 
 /* Container for layout */
 .container {
     display: flex;
-    transition: transform 0.3s ease; /* Smooth content push */
     min-height: 100vh; /* Make container at least viewport height */
+    position: relative; /* Needed for absolute sidebar toggle positioning relative to the container */
 }
 
 /* Sidebar Styles */
 .sidebar {
     width: 0; /* Initially hidden */
     overflow-x: hidden; /* Hide content when collapsed */
-    background-color: rgb(var(--color-secondary-800)); /* Example background */
-    color: rgb(var(--on-secondary)); /* Text color for secondary background */
+    background-color: var(--theme-sidebar-background); /* Dark secondary background */
+    color: var(--theme-sidebar-text); /* Text color for sidebar */
     transition: width 0.3s ease; /* Smooth sidebar width transition */
     flex-shrink: 0; /* Prevent sidebar from shrinking below its width */
     padding-top: 60px; /* Space for the toggle button fixed at the top */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Subtle shadow on the right edge */
+    position: fixed; /* Fix the sidebar position */
+    height: 100%; /* Full height */
+    top: 0;
+    left: 0;
+    z-index: 50; /* Below the toggle button */
 }
 
 .sidebar nav ul {
@@ -149,20 +191,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sidebar nav li {
-    margin-bottom: 10px;
+    margin-bottom: 0; /* Remove list item margin */
 }
 
 .sidebar nav a {
     display: block;
-    padding: 10px 20px;
-    color: rgb(var(--on-secondary)); /* Link color same as text */
+    padding: 15px 25px; /* More padding */
+    color: var(--theme-sidebar-text); /* Link color */
     text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
+    font-weight: 600; /* Open Sans semi-bold */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 1.1em;
 }
 
 .sidebar nav a:hover {
-    background-color: rgba(var(--color-secondary-500), 0.3); /* Subtle hover effect */
+    background-color: rgba(var(--color-primary-500), 0.2); /* Primary color hover effect */
+    color: rgb(var(--on-primary)); /* Match text color for on-primary */
 }
 
 
@@ -170,36 +214,98 @@ h1, h2, h3, h4, h5, h6 {
 .content {
     flex-grow: 1; /* Take up remaining space */
     padding: 20px;
+    margin-left: 0; /* Initial margin */
     transition: margin-left 0.3s ease; /* Smooth margin transition */
+    /* Add some styling to the content area itself */
+    background-color: var(--theme-card-background);
+    border-radius: var(--theme-rounded-container);
+    margin: 20px auto; /* Center content and add overall margin */
+    max-width: 1000px; /* Limit content width for readability */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for the content block */
 }
+
+.content-header {
+    text-align: center; /* Center the main title */
+    margin-bottom: 30px;
+}
+
+.info-section {
+    margin-bottom: 30px; /* Space out sections */
+    padding-bottom: 20px; /* Add padding below section */
+    border-bottom: 1px dashed rgba(var(--color-surface-700), 0.3); /* Subtle separator */
+}
+
+.info-section:last-child {
+    border-bottom: none; /* No border on the last section */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 
 /* Sidebar Toggle Button */
 .sidebar-toggle {
     position: fixed; /* Stay in place */
-    top: 10px;
-    left: 10px; /* Initial position */
+    top: 15px; /* Adjusted position */
+    left: 15px; /* Initial position */
     z-index: 100; /* Stay on top */
-    background-color: rgb(var(--color-primary-500));
-    color: rgb(var(--on-primary));
+    background-color: var(--theme-primary-accent); /* Primary color */
+    color: rgb(var(--on-primary)); /* Text color on primary */
     border: var(--theme-border-base);
-    border-radius: var(--theme-rounded-base);
-    padding: 5px 15px;
+    border-radius: var(--theme-rounded-base); /* Pill shape */
+    padding: 8px 18px; /* More padding */
     cursor: pointer;
-    font-size: 1.2em;
-    transition: left 0.3s ease; /* Smooth button movement */
-    line-height: 1; /* Prevent extra space around '>' */
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    font-size: 1.5em; /* Larger text */
+    transition: left 0.3s ease, background-color 0.2s ease; /* Smooth movement and color transition */
+    line-height: 1; /* Prevent extra space */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2); /* More prominent shadow */
+    font-weight: bold;
+    display: flex; /* Use flexbox to center the content if needed */
+    align-items: center;
+    justify-content: center;
 }
+
+.sidebar-toggle:hover {
+    background-color: rgb(var(--color-primary-600)); /* Slightly darker primary on hover */
+}
+
 
 /* State when sidebar is open */
 .container.sidebar-open .sidebar {
-    width: 200px; /* Desired width when open */
+    width: 250px; /* Wider sidebar */
 }
 
+/* When sidebar is open, push content and button */
 .container.sidebar-open .content {
-    margin-left: 200px; /* Push content by sidebar width */
+    /* For fixed sidebar, content doesn't technically move, but adding margin
+       gives the appearance of it being pushed. */
+    margin-left: calc(20px + 250px); /* Sidebar width + original left margin */
 }
 
 .container.sidebar-open .sidebar-toggle {
-    left: 210px; /* Position button to the right of the sidebar */
+    left: calc(15px + 250px); /* Button position = Sidebar width + original left position */
+}
+
+/* Small screen adjustments (optional but recommended for modern design) */
+@media (max-width: 768px) {
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+    .content {
+        padding: 15px;
+        margin: 15px; /* Reduce margin on small screens */
+    }
+    .sidebar {
+        /* Maybe adjust sidebar width slightly on smaller screens */
+         width: 0; /* Start hidden */
+    }
+     .container.sidebar-open .sidebar {
+         width: 200px; /* Slightly narrower sidebar on small screens */
+     }
+
+     .container.sidebar-open .content {
+         margin-left: calc(15px + 200px); /* Adjust margin based on new sidebar width and content margin */
+     }
+
+      .container.sidebar-open .sidebar-toggle {
+        left: calc(15px + 200px); /* Adjust button position */
+     }
 }
