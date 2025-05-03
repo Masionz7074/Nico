@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <!-- Link to the main stylesheet (assuming it's in the same directory as index.html) -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,45 +22,82 @@
         <aside class="sidebar">
             <nav>
                 <ul>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Credit</a></li>
-                    <li><a href="#">Rules</a></li>
+                    <li><a href="#rules">Rules</a></li>
+                    <li><a href="#credit">Credit</a></li>
+                    <li><a href="#settings">Settings</a></li> <!-- Moved to bottom -->
                 </ul>
             </nav>
+            <div class="music-controls">
+                <p>Background Music</p>
+                <button id="musicToggle">Play</button>
+                <audio id="backgroundMusic" loop>
+                    <!-- Replace 'path/to/your/music.mp3' with the actual path to your music file -->
+                    <!-- You can provide multiple sources for broader browser compatibility -->
+                    <source src="path/to/your/music.mp3" type="audio/mpeg">
+                    <!-- Example for Ogg format: <source src="path/to/your/music.ogg" type="audio/ogg"> -->
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </aside>
 
         <!-- Main Content Area -->
         <main class="content">
             <header class="content-header">
                  <h1>Welcome to Nico's Information</h1>
+                 <p>Everything you need to know, right here.</p>
             </header>
 
-            <section class="info-section">
+            <section id="rules" class="info-section">
+                <h2>Rules</h2>
+                <p>Please adhere to the following guidelines while using this platform:</p>
+                <ul>
+                    <li>Rule 1: Be respectful to others.</li>
+                    <li>Rule 2: Do not share personal information publicly.</li>
+                    <li>Rule 3: Follow all applicable laws.</li>
+                    <li>Rule 4: Have fun and learn!</li>
+                </ul>
+            </section>
+
+            <section id="credit" class="info-section">
+                <h2>Credit</h2>
+                <p>This website was designed and developed by Nico, using the following resources:</p>
+                <ul>
+                    <li>Theme colors based on the provided Skeletonlabs config.</li>
+                    <li>Fonts from Google Fonts (Raleway & Open Sans).</li>
+                    <li>Inspiration from modern web design principles.</li>
+                    <li>Placeholder content from standard lorem ipsum.</li>
+                </ul>
+                <p>Special thanks to the open-source community!</p>
+            </section>
+
+            <section id="settings" class="info-section">
+                <h2>Settings</h2>
+                <p>Currently, there are no user-specific settings available.</p>
+                <p>Future updates may include options for:</p>
+                 <ul>
+                    <li>Theme customization (e.g., light/dark mode).</li>
+                    <li>Notification preferences.</li>
+                    <li>Language selection.</li>
+                </ul>
+                <p>Check back later for more options!</p>
+            </section>
+
+            <!-- You can add more sections here -->
+            <section id="about" class="info-section">
                 <h2>About Nico</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </section>
 
-            <section class="info-section">
+             <section id="projects" class="info-section">
                 <h2>Projects</h2>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <ul>
-                    <li>Project Alpha</li>
-                    <li>Project Beta</li>
-                    <li>Project Gamma</li>
-                </ul>
             </section>
 
-            <section class="info-section">
-                <h2>Contact</h2>
-                <p>Find me at:</p>
-                <ul>
-                    <li>Email: nico@example.com</li>
-                    <li>Social Media: @nicoinfo</li>
-                </ul>
-            </section>
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Link to the JavaScript files -->
+    <script src="js/script.js"></script>
+    <script src="js/music.js"></script>
 </body>
 </html>
