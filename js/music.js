@@ -1,21 +1,18 @@
-// js/music.js
+// js/music.js - No changes needed to core logic
 
 document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('backgroundMusic');
     const musicToggleBtn = document.getElementById('musicToggle');
     const sidebarLinks = document.querySelectorAll('.sidebar nav a');
 
-    // Initial state
     let isPlaying = false;
-    // Optional: Auto-play when page loads (be mindful of browser restrictions)
-    // audio.play().catch(e => console.log("Autoplay prevented:", e));
-    // isPlaying = true; // If attempting autoplay
-    // updateMusicButtonText(); // Update button text accordingly if autoplay
 
     // Function to update the button text
     function updateMusicButtonText() {
-        musicToggleBtn.textContent = isPlaying ? 'Pause' : 'Play';
-        musicToggleBtn.setAttribute('aria-checked', isPlaying); // Accessibility
+        if (musicToggleBtn) { // Added check in case element wasn't found
+            musicToggleBtn.textContent = isPlaying ? 'Pause' : 'Play';
+            musicToggleBtn.setAttribute('aria-checked', isPlaying); // Accessibility
+        }
     }
 
     // Toggle Play/Pause on button click
@@ -26,14 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Using .play() returns a Promise
                 audio.play().then(() => {
+                    console.log("Music playback started.");
                     // Playback started successfully
                 }).catch(error => {
-                    // Handle potential errors (e.g., user hasn't interacted yet)
+                    // Handle potential errors (e.g., user hasn't interacted yet, browser policy)
                     console.warn("Music playback failed:", error);
-                    // Maybe show a message to the user
+                    // You might want to display a message to the user here
+                    // e.g., "Click 'Play' again after interacting with the page."
                 });
             }
-            isPlaying = !isPlaying; // Toggle the state
+            isPlaying = !isPlaying; // Toggle the state regardless of play() success immediately
             updateMusicButtonText(); // Update button text
         });
 
@@ -45,9 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update state if audio is paused by other means (e.g., browser tab change)
          audio.addEventListener('pause', () => {
-             if (isPlaying) { // Only update state if we thought it was playing
+             // Only update state if we thought it was playing - prevent infinite loop if user manually pauses
+             // Simple check: if (!audio.seeking) { ... }
+             if (isPlaying && !audio.seeking) {
                 isPlaying = false;
                 updateMusicButtonText();
+                console.log("Music paused.");
              }
          });
 
@@ -56,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
              if (!isPlaying) { // Only update state if we thought it was paused
                  isPlaying = true;
                  updateMusicButtonText();
+                  console.log("Music playing.");
              }
          });
 
@@ -63,22 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMusicButtonText();
 
     } else {
-         console.error("Music toggle button or audio element not found!");
+         console.warn("Music toggle button or audio element not found (expected if main content is hidden).");
          // Optionally hide the music controls if elements are missing
-         if (document.querySelector('.music-controls')) {
-             document.querySelector('.music-controls').style.display = 'none';
+         const musicControlsDiv = document.querySelector('.music-controls');
+         if (musicControlsDiv) {
+             musicControlsDiv.style.display = 'none';
          }
     }
 
 
     // Pause music when the tab is closed or user navigates away
-    // This is often handled automatically by browsers on tab switch/minimize,
-    // but `beforeunload` ensures it's paused when the page is explicitly left.
     window.addEventListener('beforeunload', () => {
         if (audio && !audio.paused) {
              audio.pause();
-             // Note: You cannot reliably resume music here after unload
-             // because browser restrictions prevent autoplay without user interaction.
         }
     });
 
@@ -90,10 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     audio.pause();
                     isPlaying = false; // Update internal state
                     updateMusicButtonText(); // Update button text
+                    console.log("Music paused on link click.");
                 }
-                // Optional: Close sidebar on link click
-                // document.querySelector('.container').classList.remove('sidebar-open');
-                // document.getElementById('sidebarToggle').textContent = '>';
+                // Optional: Close sidebar on link click - add this to script.js instead?
+                // Or add a custom event listener here that script.js listens for.
             });
         });
     }
